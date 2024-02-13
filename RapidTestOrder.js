@@ -8,11 +8,17 @@ class RapidTestOrder {
         aReturn.push("Would you like to order from Toronto's most popular Bubble Tea location?");
         return aReturn;
       },
-      MENU: () =>{
+      MENU: (sInput) =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.SIZE;
+        if(sInput.toLowerCase() === "yes"){
+         this.stateCur = this.OrderState.SIZE;
         aReturn.push("What type of bubble tea would you like to order?"); 
         aReturn.push("We have Taro Milk Tea and Mango Milk Tea");
+        }
+        else{
+            this.isDone = true;
+            aReturn.push("Goodbye");
+        }
         return aReturn;
       },
       SIZE: () =>{

@@ -1,5 +1,6 @@
 class RapidTestOrder {
   constructor(sFrom) {
+
     this.OrderState = {
       WELCOMING: () => {
         let aReturn = [];
@@ -21,7 +22,7 @@ class RapidTestOrder {
         }
         return aReturn;
       },
-      SIZE: () =>{
+      SIZE: (sInput) =>{
         let aReturn = [];
         this.stateCur = this.OrderState.TOPPINGS;
         aReturn.push("What size of bubble tea would you like to order?"); 
@@ -30,25 +31,31 @@ class RapidTestOrder {
       },
        TOPPINGS: () =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.CONFIRM;
+        this.stateCur = this.OrderState.UPSELL;
         aReturn.push("What kind of toppings would you like to add?"); 
         aReturn.push("We have tapioca, mango jelly and lychee jelly");
         return aReturn;
       },
-      CONFIRM: (sInput) => {
+       UPSELL: (sInput) =>{
         let aReturn = [];
-        this.isDone = true;
-        if (sInput.toLowerCase().startsWith('y')) {
-          aReturn.push(`Your rapid test is reserved under the phone number ${this.sFrom}`);
-          let d = new Date();
-          d.setMinutes(d.getMinutes() + 120);
-          aReturn.push(`Please pick it up at 123 Tidy St., Acton before ${d.toTimeString()}`);
-        } else {
-          aReturn.push("Thanks for trying our reservation system");
-          aReturn.push("Maybe next time")
+         this.stateCur = this.OrderState.TIRAMISU;
+        aReturn.push("Would you like a slice of Tiramisu cake on the side?"); 
+        
+        return aReturn;
+      },
+      TIRAMISU: (sInput) =>{
+        let aReturn = [];
+        if(sInput.toLowerCase() === "yes"){
+        this.isDone = true; 
+        aReturn.push("Lovely! It has been added"); 
+        aReturn.push("Your order has been submitted! Thank you for ordering from Bav's Bubble Tea");
+        }
+        else{
+            aReturn.push("No worries!");
+            aReturn.push("Your order has been submitted! Thank you for ordering from Bav's Bubble Tea");
         }
         return aReturn;
-      }
+      },
     };
 
     this.stateCur = this.OrderState.WELCOMING;

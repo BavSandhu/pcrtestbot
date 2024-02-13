@@ -3,19 +3,33 @@ class RapidTestOrder {
     this.OrderState = {
       WELCOMING: () => {
         let aReturn = [];
+        this.stateCur = this.OrderState.MENU;
+        aReturn.push("Welcome to Bav's Bubble Tea.");
+        aReturn.push("Would you like to order from Toronto's most popular Bubble Tea location?");
+        return aReturn;
+      },
+      MENU: () =>{
+        let aReturn = [];
         this.stateCur = this.OrderState.SIZE;
-        aReturn.push("Welcome to Bav's Burgers.");
-        aReturn.push("What kind of burger would you like from Toronto's most popular location?");
+        aReturn.push("What type of bubble tea would you like to order?"); 
+        aReturn.push("We have Taro Milk Tea and Mango Milk Tea");
         return aReturn;
       },
       SIZE: () =>{
         let aReturn = [];
-        this.stateCur = this.OrderState.RESERVING;
-        aReturn.push("What side would you like with your burger?"); 
-        aReturn.push("We have Canadian and Vegitarian");
+        this.stateCur = this.OrderState.TOPPINGS;
+        aReturn.push("What size of bubble tea would you like to order?"); 
+        aReturn.push("We have small, medium and large");
         return aReturn;
       },
-      RESERVING: (sInput) => {
+       TOPPINGS: () =>{
+        let aReturn = [];
+        this.stateCur = this.OrderState.CONFIRM;
+        aReturn.push("What kind of toppings would you like to add?"); 
+        aReturn.push("We have tapioca, mango jelly and lychee jelly");
+        return aReturn;
+      },
+      CONFIRM: (sInput) => {
         let aReturn = [];
         this.isDone = true;
         if (sInput.toLowerCase().startsWith('y')) {
